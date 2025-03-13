@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Direct Cursor Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+      cursor: none !important;
+    }
+    
+    h1, h2 {
+      color: cyan;
+    }
+    
+    .test-area {
+      border: 1px solid #333;
+      padding: 20px;
+      margin: 20px 0;
+      min-height: 200px;
+    }
+    
+    button, a {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 10px;
+      background-color: #222;
+      color: cyan;
+      border: 1px solid cyan;
+      text-decoration: none;
+      cursor: none !important;
+    }
+    
+    #custom-cursor {
+      position: fixed;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999999;
+      transform: translate(-50%, -50%);
+      border: 2px solid cyan;
+      background-color: rgba(0, 255, 255, 0.2);
+      box-shadow: 0 0 10px cyan;
+      transition: transform 0.1s ease, background-color 0.1s ease;
+      top: 0;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Direct Cursor Test</h1>
+  <p>This is a standalone test page for the custom cursor.</p>
+  
+  <div class="test-area">
+    <h2>Test Area</h2>
+    <p>Move your mouse here to test the cursor.</p>
+    <button>Test Button</button>
+    <a href="#">Test Link</a>
+  </div>
+  
+  <script>
+    // Create cursor element
+    const cursor = document.createElement('div');
+    cursor.id = 'custom-cursor';
+    document.body.appendChild(cursor);
+    
+    // Track mouse movement
+    document.addEventListener('mousemove', function(e) {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    
+    // Add hover effect
+    document.addEventListener('mouseover', function(e) {
+      if (e.target.tagName === 'A' || 
+          e.target.tagName === 'BUTTON' || 
+          e.target.tagName === 'INPUT' ||
+          e.target.tagName === 'SELECT' ||
+          e.target.tagName === 'TEXTAREA' ||
+          e.target.hasAttribute('role') && e.target.getAttribute('role') === 'button') {
+        cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+        cursor.style.backgroundColor = 'rgba(0, 255, 255, 0.4)';
+      }
+    });
+    
+    document.addEventListener('mouseout', function(e) {
+      if (e.target.tagName === 'A' || 
+          e.target.tagName === 'BUTTON' || 
+          e.target.tagName === 'INPUT' ||
+          e.target.tagName === 'SELECT' ||
+          e.target.tagName === 'TEXTAREA' ||
+          e.target.hasAttribute('role') && e.target.getAttribute('role') === 'button') {
+        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+        cursor.style.backgroundColor = 'rgba(0, 255, 255, 0.2)';
+      }
+    });
+    
+    // Add click effect
+    document.addEventListener('mousedown', function() {
+      cursor.style.transform = 'translate(-50%, -50%) scale(0.9)';
+    });
+    
+    document.addEventListener('mouseup', function() {
+      cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+    });
+  </script>
+</body>
+</html> 

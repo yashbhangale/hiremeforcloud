@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+  {{- partial "head.html" . -}} 
+  <body
+    class="background-image"
+    {{ with resources.GetMatch "img/background.*" }}
+    style="background-image: url('{{.RelPermalink}}')"
+    {{ end }}
+  >
+    <!-- Linux Boot Loading Screen - Only on Home Page -->
+    {{ if .IsHome }}
+    <div id="boot-loading-screen">
+      <div class="boot-console">
+        <div class="boot-logo">
+          ██╗  ██╗██╗██████╗ ███████╗███╗   ███╗███████╗███████╗ ██████╗ ██████╗ 
+          ██║  ██║██║██╔══██╗██╔════╝████╗ ████║██╔════╝██╔════╝██╔═══██╗██╔══██╗
+          ███████║██║██████╔╝█████╗  ██╔████╔██║█████╗  █████╗  ██║   ██║██████╔╝
+          ██╔══██║██║██╔══██╗██╔══╝  ██║╚██╔╝██║██╔══╝  ██╔══╝  ██║   ██║██╔══██╗
+          ██║  ██║██║██║  ██║███████╗██║ ╚═╝ ██║███████╗██║     ╚██████╔╝██║  ██║
+          ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚══════╝╚═╝      ╚═════╝ ╚═╝  ╚═╝
+                                                  
+          
+          {{ .Site.Title }} {{ .Site.Params.subtitle }} v1.0.0
+        </div>
+        <div id="boot-messages"></div>
+        <div class="cursor"></div>
+      </div>
+    </div>
+    {{ end }}
+    
+    {{- partial "header.html" . -}}
+    <div id="content" {{ if .IsHome }}style="display: none;"{{ end }}>
+      <main class="p-3 p-lg-5 container">
+        <div class="container">
+          {{- block "main" .}} {{- end }}
+        </div>
+        </main>
+    </div>
+    {{- partial "footer.html" . -}}
+    
+    <!-- Boot Loading Screen Script - Only on Home Page -->
+    {{ if .IsHome }}
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const bootMessages = [
+          "[ OK ] Started Kernel Boot Process",
+          "[ OK ] Reached target Local File Systems",
+          "Starting Load/Save Random Seed...",
+          "[ OK ] Started Load/Save Random Seed",
+          "Starting Create Volatile Files and Directories...",
+          "[ OK ] Started Create Volatile Files and Directories",
+          "Starting Network Time Synchronization...",
+          "[ OK ] Found device /dev/ttyS0",
+          "Starting Update UTMP about System Boot/Shutdown...",
+          "[ OK ] Started Update UTMP about System Boot/Shutdown",
+          "[ OK ] Reached target System Initialization",
+          "[ OK ] Started Daily Cleanup of Temporary Directories",
+          "[ OK ] Listening on D-Bus System Message Bus Socket",
+          "[ OK ] Reached target Sockets",
+          "[ OK ] Reached target Basic System",
+          "Starting {{ .Site.Title }} Web Server...",
+          "Starting Initialize {{ .Site.Title }} Content...",
+          "[ OK ] Started {{ .Site.Title }} Web Server",
+          "[ OK ] Finished Initialize {{ .Site.Title }} Content",
+          "[ OK ] Reached target {{ .Site.Title }} System",
+          "Starting User Interface...",
+          "[ OK ] Started User Interface",
+          "{{ .Site.Title }} {{ .Site.Params.subtitle }} login: ",
+          "Password: ",
+          "Last login: " + new Date().toUTCString(),
+          "Welcome to {{ .Site.Title }}!"
+        ];
+        
+        const bootMessagesElement = document.getElementById('boot-messages');
+        const contentElement = document.getElementById('content');
+        const loadingScreen = document.getElementById('boot-loading-screen');
+        
+        let messageIndex = 0;
+        
+        function displayNextMessage() {
+          if (messageIndex < bootMessages.length) {
+            const messageElement = document.createElement('div');
+            messageElement.className = 'boot-message';
+            
+            // Add timestamp for system messages only (not for login prompts)
+            let messageText = bootMessages[messageIndex];
+            if (messageIndex < 22) {
+              const date = new Date();
+              const timestamp = '[' + date.getHours().toString().padStart(2, '0') + 
+                                ':' + date.getMinutes().toString().padStart(2, '0') + 
+                                ':' + date.getSeconds().toString().padStart(2, '0') + '] ';
+              messageText = timestamp + messageText;
+            }
+            
+            messageElement.textContent = messageText;
+            bootMessagesElement.appendChild(messageElement);
+            
+            // Auto-scroll to bottom
+            bootMessagesElement.scrollTop = bootMessagesElement.scrollHeight;
+            
+            messageIndex++;
+            
+            // Special handling for login and password
+            if (messageIndex === 23) { // After login prompt
+              setTimeout(function() {
+                typeText(messageElement, "user", function() {
+                  displayNextMessage();
+                });
+              }, 300);
+              return;
+            } else if (messageIndex === 24) { // After password prompt
+              setTimeout(function() {
+                typeText(messageElement, "********", function() {
+                  displayNextMessage();
+                });
+              }, 300);
+              return;
+            }
+            
+            // Random delay between messages (150-400ms)
+            const delay = Math.floor(Math.random() * 150) + 50;
+            setTimeout(displayNextMessage, delay);
+          } else {
+            // All messages displayed, show content after a short delay
+            setTimeout(function() {
+              loadingScreen.style.opacity = '0';
+              contentElement.style.display = 'block';
+              
+              // Remove loading screen after fade out
+              setTimeout(function() {
+                loadingScreen.style.display = 'none';
+              }, 200);
+            }, 300);
+          }
+        }
+        
+        // Function to simulate typing
+        function typeText(element, text, callback) {
+          let i = 0;
+          const originalText = element.textContent;
+          
+          function type() {
+            if (i < text.length) {
+              element.textContent = originalText + text.substring(0, i + 1);
+              i++;
+              setTimeout(type, Math.floor(Math.random() * 1) + 50); // Random typing speed
+            } else {
+              if (callback) callback();
+            }
+          }
+          
+          type();
+        }
+        
+        // Start displaying messages
+        setTimeout(displayNextMessage, 500);
+      });
+    </script>
+    {{ end }}
+  </body>
+</html>

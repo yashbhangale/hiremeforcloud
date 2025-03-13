@@ -1,0 +1,159 @@
+disabled = false
+languageCode = 'en-US'
+languageName = 'English'
+title = 'HireMeFor.Cloud' # This will go in the Header as well
+copyright = """© 2024 HireMeFor.Cloud - All Rights Reserved"""
+contentDir = "content/en"
+
+
+# Change single params to "false" to remove from rendering
+[params]
+  subtitle = "Expert Cloud, DevOps & AI Training" # This goes in the header and in the site title
+  # PAGES
+  [params.homepage]
+    # Notice that SEO meta tags (what appears in google search results) can be set
+    # in individual pages frontmatters `/content/<page>`
+    ###
+    preTitle = 'Professional Training'
+    title = "HireMeFor.Cloud"
+    # You can use some markdown safely here as long as you don't include line breaks
+    intro= """
+### "Empowering the next generation of cloud professionals through expert-led training and hands-on experience."
+___
+
+**Comprehensive training programs in Cloud Computing, DevOps practices, and Artificial Intelligence technologies.**
+
+Our mission is to bridge the gap between theoretical knowledge and practical implementation in the rapidly evolving tech landscape. We offer specialized courses designed by industry experts to help you master the skills that employers are actively seeking.
+
+Whether you're looking to start a career in cloud technologies, enhance your DevOps practices, or explore the cutting edge of AI, our structured learning paths will guide you to success.
+
+Explore our course offerings and start your journey to becoming a cloud professional today!
+        """
+    mainButton = "Our Courses"
+    mainButtonRef = "courses" # Just write the name or slug of the page here
+    secondButton = "Contact Us"
+    secondButtonRef = "contacts" # Just write the name or slug of the page here
+  # For the blog feed section (visible only if posts are rendered)
+    blogTitle = "Latest Articles & Resources"
+    blogButton= "View All Resources"
+
+[params.office]
+  title = "Our Training Center"
+  description = "Visit our state-of-the-art training facility where we conduct hands-on workshops and in-person training sessions."
+  buttonText = "Get directions" 
+  buttonLink = "https://maps.app.goo.gl/LzsPzRkTYSZ8SF3y8" # google maps "share" link here (for button)
+  mapLink = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d382266.44569392945!2d-76.55832397784323!3d41.53770983690751!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c4d93a77484bbb%3A0xfff27920ab9bfae8!2sScranton%2C%20Pennsylvania%2C%20Stati%20Uniti!5e0!3m2!1sit!2sit!4v1716459350324!5m2!1sit!2sit" # google maps "embed" link here
+
+[params.contacts]
+  title = "Get in touch!"
+  formCallToAction = "Have questions about our courses or need personalized training solutions? Reach out to our team of experts."
+  socialCallToAction = "Connect with us on social media for the latest updates and resources!" # These are the same as in [params.social]
+  [params.contacts.form]
+    formspreeLink = "https://formspree.io/f/yourformid" #subscribe to formspree and add the link for the form here
+    firstname = "First Name*"
+    lastname = "Last Name*"
+    email = "E-mail*"
+    phone = "Phone Number*"
+    Inquiry = "How can we help you?*"
+    checkbox = "I agree to receive communications about HireMeFor.Cloud services and events*"
+    submitBtn = "Submit"
+[params.services]
+  title = "Our Courses"
+  description = """At HireMeFor.Cloud, we offer comprehensive training programs designed to equip you with the skills needed to excel in today's technology-driven job market. Our courses combine theoretical knowledge with hands-on practice, ensuring you're ready to tackle real-world challenges."""
+  [params.services.list]
+    # You can add as much params.services.list.<N> as you like
+    [params.services.list.0]
+      title= "Cloud Computing Fundamentals"
+      description= "Master the essentials of cloud platforms including AWS, Azure, and Google Cloud. Learn about cloud architecture, deployment models, and best practices for cloud migration."
+    [params.services.list.01]
+      title = "Advanced DevOps Practices"
+      description= "Dive deep into CI/CD pipelines, infrastructure as code, containerization with Docker, and orchestration with Kubernetes. Develop skills to automate and streamline development workflows."
+    [params.services.list.02]
+      title = "AI & Machine Learning for Cloud"
+      description= "Explore how AI and ML technologies are transforming cloud services. Learn to implement and deploy machine learning models in cloud environments and leverage AI services offered by major cloud providers."
+    [params.services.list.03]
+      title = "Cloud Security & Compliance"
+      description= "Understand the security challenges in cloud environments and learn strategies to protect cloud infrastructure. Cover compliance frameworks, identity management, and security automation."
+    [params.services.list.04]
+      title = "Serverless Architecture"
+      description= "Learn to build and deploy applications using serverless technologies. Understand event-driven architecture, function-as-a-service, and how to design cost-effective serverless solutions."
+    [params.services.list.05]
+      title = "Cloud Certification Preparation"
+      description= "Targeted courses to help you prepare for industry-recognized certifications from AWS, Microsoft Azure, Google Cloud, and more. Includes practice exams and hands-on labs."
+    [params.services.list.06]
+      title = "Custom Enterprise Training"
+      description= "Tailored training programs designed specifically for your organization's needs. We can develop customized curricula focusing on the technologies and skills most relevant to your business goals."
+
+[params.socials]
+  enabled = true # enables/disables the whole social section in the footer
+  callToAction= "Connect with us on social networks >"
+      [[params.socials.link]]
+        name = "github"
+        link = "https://github.com/hiremeforcloud"
+      [[params.socials.link]]
+        name = "linkedin"
+        link = "https://linkedin.com/company/hiremeforcloud"
+      [[params.socials.link]]
+        name = "twitter"
+        link = "https://twitter.com/hiremeforcloud"
+      [[params.socials.link]]
+        name = "youtube"
+        link = "https://youtube.com/c/hiremeforcloud"
+
+[params.schedules] # Time schedules (eg. your office openming hours)
+  enabledFooter = true # This will add the schedules on the footer too
+  enabledContacts = true # This will add the schedule to the contact page
+  title = "Training Hours" # For contacts page only
+  [params.schedules.days]
+  # Use something like "Monday: 9-13" for each day
+  # if left empty it is disabled (default)
+    day1 = "Monday: 9am – 6pm"
+    day2 = "Tuesday: 9am – 6pm"
+    day3 = "Wednesday: 9am – 6pm"
+    day4 = "Thursday: 9am – 6pm"
+    day5 = "Friday: 9am – 6pm"
+    day6 = "Saturday: 10am – 2pm (Online Only)"
+    day7 = ""
+
+[params.footer]
+  extraDescription1 = "Transforming careers through expert cloud training"
+  extraDescription2 = "Registered Company #12345678"
+  [params.footer.navigate]
+  heading = "Navigate"   
+  [params.footer.contacts]
+  enabled = true # enables/disables the whole contacts section in footer
+  heading = "Contact"
+  address = "123 Tech Plaza, Innovation District, San Francisco, CA 94105"
+  mail = "info@hiremefor.cloud"
+  mail2 = "training@hiremefor.cloud"
+  phone = "+1 (555) 123-4567"
+  
+[params.notfound]
+  title = "404, page not found" # text for 404 page
+
+[params.single] # for posts pages (visible only if posts are rendered)
+  similarContent= "Related Resources"
+  toc= "Table of Contents"
+
+[menus]
+# PageRef should refer to the "translationKey" in `/content/<page>` frontmatter, names can be changed freely
+  [[menus.main]]
+  name = "Home"
+  pageRef = "/"
+  weight = 1
+  [[menus.main]]
+  name = "Courses"
+  pageRef = "pages/services"
+  weight = 2
+  [[menus.main]]
+  name = "Training Center"
+  pageRef = "pages/office"
+  weight = 3
+  [[menus.main]]
+  name = "About Us"
+  pageRef = "pages/about"
+  weight = 4
+  [[menus.main]]
+  name = "Contact"
+  pageRef = "pages/contacts"
+  weight = 5

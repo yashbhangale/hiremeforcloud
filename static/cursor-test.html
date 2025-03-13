@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cursor Test</title>
+  <style>
+    body {
+      background-color: #222;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      cursor: none;
+    }
+    
+    h1, h2 {
+      color: #0ff;
+    }
+    
+    .test-area {
+      border: 1px solid #444;
+      padding: 20px;
+      margin: 20px 0;
+      min-height: 200px;
+    }
+    
+    button, a {
+      padding: 10px 20px;
+      margin: 10px;
+      background-color: #333;
+      color: #0ff;
+      border: 1px solid #0ff;
+      cursor: none;
+    }
+    
+    /* Custom cursor styles */
+    .custom-cursor {
+      position: fixed;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      mix-blend-mode: normal;
+      filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.9));
+      top: 0;
+      left: 0;
+      transform: translate(-50%, -50%);
+    }
+    
+    .cursor-dot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 12px;
+      height: 12px;
+      background-color: #0ff;
+      border-radius: 50%;
+      opacity: 1;
+      box-shadow: 0 0 15px #0ff, 0 0 25px #0ff;
+    }
+    
+    .cursor-ring {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 3px solid rgba(0, 255, 255, 0.8);
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+    
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        opacity: 0.5;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 0.5;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Cursor Test Page</h1>
+  <p>This is a standalone test page for the custom cursor.</p>
+  
+  <div class="test-area">
+    <h2>Test Area</h2>
+    <p>Move your mouse here to test the cursor.</p>
+    <button>Test Button</button>
+    <a href="#">Test Link</a>
+  </div>
+  
+  <div id="debug" style="background-color: #333; padding: 10px; margin-top: 20px;">
+    <h3>Debug Info:</h3>
+    <pre id="debug-info">Move your mouse to see debug info</pre>
+  </div>
+  
+  <script>
+    // Simple cursor implementation
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('Cursor test page loaded');
+      
+      // Create cursor elements
+      const cursor = document.createElement('div');
+      cursor.className = 'custom-cursor';
+      
+      const cursorDot = document.createElement('div');
+      cursorDot.className = 'cursor-dot';
+      
+      const cursorRing = document.createElement('div');
+      cursorRing.className = 'cursor-ring';
+      
+      // Append cursor elements
+      cursor.appendChild(cursorDot);
+      cursor.appendChild(cursorRing);
+      document.body.appendChild(cursor);
+      
+      // Debug element
+      const debugInfo = document.getElementById('debug-info');
+      
+      // Track mouse movement
+      document.addEventListener('mousemove', function(e) {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        
+        // Update debug info
+        debugInfo.textContent = `Mouse position: ${e.clientX}, ${e.clientY}\n`;
+        debugInfo.textContent += `Cursor position: ${cursor.style.left}, ${cursor.style.top}\n`;
+        debugInfo.textContent += `Cursor opacity: ${getComputedStyle(cursor).opacity}`;
+      });
+      
+      // Add hover effect for interactive elements
+      const interactiveElements = document.querySelectorAll('a, button');
+      interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+        });
+        
+        el.addEventListener('mouseleave', () => {
+          cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+        });
+      });
+      
+      // Add click effect
+      document.addEventListener('mousedown', () => {
+        cursor.style.transform = 'translate(-50%, -50%) scale(0.9)';
+      });
+      
+      document.addEventListener('mouseup', () => {
+        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+      });
+    });
+  </script>
+</body>
+</html> 

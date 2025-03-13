@@ -1,0 +1,42 @@
+<div id="cursor-test" style="padding: 20px; background-color: #333; color: white; margin: 20px 0;">
+  <h3>Cursor Test Area</h3>
+  <p>Move your mouse here to test the custom cursor. If you can see it, it's working!</p>
+  <button class="btn btn-primary">Test Button for Hover Effect</button>
+  <a href="#" class="btn btn-secondary">Test Link for Hover Effect</a>
+  
+  <div id="cursor-debug" style="margin-top: 20px; padding: 10px; background-color: #222; border: 1px solid #444;">
+    <h4>Cursor Debug Info:</h4>
+    <pre id="cursor-debug-info">Move your mouse to see debug info</pre>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const debugInfo = document.getElementById('cursor-debug-info');
+  
+  // Check if cursor elements exist
+  setTimeout(function() {
+    const cursor = document.querySelector('.custom-cursor');
+    if (cursor) {
+      debugInfo.textContent = 'Custom cursor element found!\n';
+      debugInfo.textContent += 'Cursor style:\n';
+      debugInfo.textContent += `- opacity: ${getComputedStyle(cursor).opacity}\n`;
+      debugInfo.textContent += `- z-index: ${getComputedStyle(cursor).zIndex}\n`;
+      debugInfo.textContent += `- transform: ${getComputedStyle(cursor).transform}\n`;
+      debugInfo.textContent += `- position: ${getComputedStyle(cursor).position}\n`;
+    } else {
+      debugInfo.textContent = 'ERROR: Custom cursor element not found!';
+    }
+  }, 1000);
+  
+  // Track mouse position in test area
+  document.getElementById('cursor-test').addEventListener('mousemove', function(e) {
+    const cursor = document.querySelector('.custom-cursor');
+    if (cursor) {
+      debugInfo.textContent = 'Mouse position: ' + e.clientX + ', ' + e.clientY + '\n';
+      debugInfo.textContent += 'Cursor transform: ' + cursor.style.transform + '\n';
+      debugInfo.textContent += 'Cursor opacity: ' + cursor.style.opacity;
+    }
+  });
+});
+</script> 

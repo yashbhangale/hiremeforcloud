@@ -1,0 +1,202 @@
+<head>
+  {{ if .IsHome }}
+    <title>
+      {{ .Page.Title }}
+      {{ .Site.Title }}
+      {{ .Site.Params.subtitle }}
+    </title>
+  {{ else }}
+    <title>
+      {{ .Page.Title }} |
+      {{ .Site.Title }}
+      {{ .Site.Params.subtitle }}
+    </title>
+  {{ end }}
+  <meta charset="utf-8" />
+  <meta
+    name="description"
+    {{ if.Page.Description }}
+      content="{{ .Page.Description }}"
+    {{ else }}
+      content="{{ .Page.Summary }}"
+    {{ end }}
+  />
+
+  <meta name="dc.relation" content="{{ .Site.BaseURL }}" />
+
+  <meta name="robots" content="index,follow" />
+  
+
+
+  <!-- Google / Search Engine Tags -->
+  <meta
+    itemprop="name"
+    content="{{ .Page.Title }} {{ .Site.Title }} {{ .Site.Params.subtitle }}"
+  />
+  <meta
+    itemprop="description"
+    {{ if.Page.Description }}
+      content="{{ .Page.Description }}"
+    {{ else }}
+      content="{{ .Page.Summary }}"
+    {{ end }}
+  />
+
+  {{/* Image */}}
+  {{ with .Resources.GetMatch "images/featured.*" }}
+    <meta itemprop="image" content="{{ . }}" />
+  {{ else }}
+    <meta
+      itemprop="image"
+      content="{{ resources.GetMatch "img/meta-image.*" | absURL }}"
+    />
+  {{ end }}
+
+
+  <!-- Facebook Meta Tags -->
+  <meta property="og:url" content="{{ .Permalink }}" />
+  <meta property="og:type" content="website" />
+  <meta
+    property="og:title"
+    content="{{ .Page.Title }} {{ .Site.Title }} {{ .Site.Params.subtitle }}"
+  />
+  <meta
+    property="og:description"
+    {{ if.Page.Description }}
+      content="{{ .Page.Description }}"
+    {{ else }}
+      content="{{ .Page.Summary }}"
+    {{ end }}
+  />
+  {{ with .Resources.GetMatch "images/featured.*" }}
+    <meta property="og:image" content="{{ . }}" />
+  {{ else }}
+    <meta
+      property="og:image"
+      content="{{ resources.GetMatch "img/meta-image.*" | absURL }}"
+    />
+  {{ end }}
+
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta
+    name="twitter:title"
+    content="{{ .Page.Title }} {{ .Site.Title }} {{ .Site.Params.subtitle }}"
+  />
+  <meta
+    name="twitter:description"
+    {{ if.Page.Description }}
+      content="{{ .Page.Description }}"
+    {{ else }}
+      content="{{ .Page.Summary }}"
+    {{ end }}
+  />
+  {{ with .Resources.GetMatch "images/featured.*" }}
+    <meta name="twitter:image" content="{{ . }}" />
+  {{ else }}
+    <meta
+      name="twitter:image"
+      content="{{ resources.GetMatch "img/meta-image.*" | absURL }}"
+    />
+  {{ end }}
+
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
+  <meta name="theme-color" content="#1A94D2" />
+
+  {{/* This adds bootstrap CSS */}}
+  {{ $options := (dict "targetPath" "css/styles.css" "outputStyle" "compressed") }}
+  {{ $style := resources.Get "/scss/main.scss" | toCSS $options | minify }}
+  <link rel="stylesheet" href="{{ $style.RelPermalink }}" media="screen" />
+
+  {{/* Favicon */}}
+  {{ with resources.GetMatch "img/favicon.*" }}
+  <link
+    rel="shortcut icon"
+    type="image/x-icon"
+    href="{{.RelPermalink}}"
+  />
+  {{end}}
+  
+  <!-- Google Analytics -->
+  {{ template "_internal/google_analytics.html" . }}
+  
+  <!-- Custom cursor styles and script -->
+  <style>
+    /* Hide default cursor */
+    * {
+      cursor: none !important;
+    }
+    
+    /* Custom cursor styles */
+    #custom-cursor {
+      position: fixed;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999999;
+      transform: translate(-50%, -50%);
+      border: 2px solid cyan;
+      background-color: rgba(0, 255, 255, 0.2);
+      box-shadow: 0 0 10px cyan;
+      transition: transform 0.1s ease, background-color 0.1s ease;
+      top: 0;
+      left: 0;
+    }
+  </style>
+  
+  <script>
+    // Inline cursor script - guaranteed to work
+    document.addEventListener('DOMContentLoaded', function() {
+      // Create cursor element
+      const cursor = document.createElement('div');
+      cursor.id = 'custom-cursor';
+      document.body.appendChild(cursor);
+      
+      // Track mouse movement
+      document.addEventListener('mousemove', function(e) {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+      });
+      
+      // Add hover effect
+      document.addEventListener('mouseover', function(e) {
+        if (e.target.tagName === 'A' || 
+            e.target.tagName === 'BUTTON' || 
+            e.target.tagName === 'INPUT' ||
+            e.target.tagName === 'SELECT' ||
+            e.target.tagName === 'TEXTAREA' ||
+            e.target.hasAttribute('role') && e.target.getAttribute('role') === 'button') {
+          cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+          cursor.style.backgroundColor = 'rgba(0, 255, 255, 0.4)';
+        }
+      });
+      
+      document.addEventListener('mouseout', function(e) {
+        if (e.target.tagName === 'A' || 
+            e.target.tagName === 'BUTTON' || 
+            e.target.tagName === 'INPUT' ||
+            e.target.tagName === 'SELECT' ||
+            e.target.tagName === 'TEXTAREA' ||
+            e.target.hasAttribute('role') && e.target.getAttribute('role') === 'button') {
+          cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+          cursor.style.backgroundColor = 'rgba(0, 255, 255, 0.2)';
+        }
+      });
+      
+      // Add click effect
+      document.addEventListener('mousedown', function() {
+        cursor.style.transform = 'translate(-50%, -50%) scale(0.9)';
+      });
+      
+      document.addEventListener('mouseup', function() {
+        cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+      });
+    });
+  </script>
+</head> 

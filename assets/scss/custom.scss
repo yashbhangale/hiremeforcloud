@@ -1,0 +1,273 @@
+/* Linux Boot Loading Screen Styles */
+#boot-loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease;
+}
+
+.boot-console {
+  width: 90%;
+  max-width: 800px;
+  height: 80%;
+  max-height: 600px;
+  background-color: #000;
+  border: 1px solid #333;
+  padding: 10px;
+  font-family: 'Courier New', monospace;
+  color: #fff;
+  overflow: auto;
+  position: relative;
+}
+
+.boot-logo {
+  color: #0f0;
+  font-size: 12px;
+  line-height: 1;
+  white-space: pre;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.boot-message {
+  margin: 0;
+  padding: 2px 0;
+  font-size: 14px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  color: #aaa;
+}
+
+/* Different message types */
+.boot-message:nth-child(3n+1) {
+  color: #0f0; /* Success messages in green */
+}
+
+.boot-message:nth-child(5n) {
+  color: #ff0; /* Warning messages in yellow */
+}
+
+/* Blinking cursor */
+.cursor {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  width: 10px;
+  height: 18px;
+  background-color: #fff;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Hide scrollbar but keep functionality */
+.boot-console::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+/* For Firefox */
+.boot-console {
+  scrollbar-width: none;
+}
+
+/* For IE and Edge */
+.boot-console {
+  -ms-overflow-style: none;
+}
+
+/* Custom Futuristic Cursor Styles */
+body {
+  cursor: none !important; /* Hide the default cursor with !important */
+}
+
+.custom-cursor {
+  position: fixed;
+  width: 30px; /* Increased size */
+  height: 30px; /* Increased size */
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999; /* Increased z-index */
+  mix-blend-mode: normal; /* Changed from difference to normal */
+  transition: transform 0.2s ease;
+  filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.9)); /* Increased glow */
+  top: 0;
+  left: 0;
+}
+
+.cursor-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px; /* Increased size */
+  height: 12px; /* Increased size */
+  background-color: #0ff; /* Cyan color for futuristic look */
+  border-radius: 50%;
+  opacity: 1; /* Full opacity */
+  box-shadow: 0 0 15px #0ff, 0 0 25px #0ff; /* Increased glow */
+}
+
+.cursor-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 3px solid rgba(0, 255, 255, 0.8); /* Thicker border with higher opacity */
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+
+.cursor-glow {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: calc(100% + 20px);
+  height: calc(100% + 20px);
+  background: radial-gradient(circle, rgba(0, 255, 255, 0.5) 0%, rgba(0, 255, 255, 0) 70%);
+  border-radius: 50%;
+  opacity: 0.8; /* Increased opacity */
+}
+
+.cursor-trail {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: rgba(0, 255, 255, 0.5); /* Increased opacity */
+  opacity: 0.8; /* Increased opacity */
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+}
+
+/* Cursor hover effects */
+a:hover ~ .custom-cursor,
+button:hover ~ .custom-cursor,
+input:hover ~ .custom-cursor,
+.clickable:hover ~ .custom-cursor {
+  transform: scale(1.5);
+}
+
+a:active ~ .custom-cursor,
+button:active ~ .custom-cursor,
+.clickable:active ~ .custom-cursor {
+  transform: scale(0.9);
+}
+
+/* Cursor click and hover effects */
+.cursor-click .cursor-ring {
+  animation: click-pulse 0.5s forwards;
+}
+
+.cursor-hover {
+  transform: scale(1.5);
+}
+
+.cursor-hover .cursor-ring {
+  border-color: rgba(0, 255, 255, 0.8);
+}
+
+.cursor-hover .cursor-glow {
+  opacity: 0.8;
+  background: radial-gradient(circle, rgba(0, 255, 255, 0.5) 0%, rgba(0, 255, 255, 0) 70%);
+}
+
+@keyframes click-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.5;
+    border-color: rgba(0, 255, 255, 1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Cursor click ripple effect */
+.cursor-ripple {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 2px solid rgba(0, 255, 255, 0.8);
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  animation: ripple 0.5s linear forwards;
+  top: 0;
+  left: 0;
+}
+
+@keyframes ripple {
+  0% {
+    width: 10px;
+    height: 10px;
+    opacity: 1;
+  }
+  100% {
+    width: 80px;
+    height: 80px;
+    opacity: 0;
+  }
+}
+
+/* Cursor scanning line effect */
+.cursor-ring::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: rgba(0, 255, 255, 0.8);
+  animation: scanning 2s linear infinite;
+}
+
+@keyframes scanning {
+  0% {
+    top: 0;
+    opacity: 0.8;
+  }
+  50% {
+    top: 100%;
+    opacity: 0.5;
+  }
+  51% {
+    top: 0;
+    opacity: 0.5;
+  }
+  100% {
+    top: 0;
+    opacity: 0.8;
+  }
+}
