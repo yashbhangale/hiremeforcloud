@@ -91,7 +91,7 @@ const App: React.FC = () => {
 <div class="help-grid" style="margin-top:10px;">
   <div class="help-item" data-cmd="about" style="cursor: pointer;"> <div class="command">about</div> <div class="description">About me</div> </div>
   <div class="help-item" data-cmd="achievements" style="cursor: pointer;"> <div class="command">achievements</div> <div class="description">Awards & achievements</div> </div>
-  <div class="help-item" data-cmd="ask" style="cursor: pointer;"> <div class="command">ask</div> <div class="description">Ask me anything about myself</div> </div>
+  <div class="help-item" data-cmd="ask" style="cursor: pointer;"> <div class="command">Ask AI</div> <div class="description">Ask me anything about myself</div> </div>
   <div class="help-item" data-cmd="blog" style="cursor: pointer;"> <div class="command">blog</div> <div class="description">Visit my blog</div> </div>
   <div class="help-item" data-cmd="clear" style="cursor: pointer;"> <div class="command">clear</div> <div class="description">Clear terminal</div> </div>
   <div class="help-item" data-cmd="contact" style="cursor: pointer;"> <div class="command">contact</div> <div class="description">Contact information</div> </div>
@@ -946,7 +946,12 @@ Linux 5.15.0-geeky-custom x86_64 GNU/Linux
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value)}
                     onKeyDown={handleKeyDown}
                     placeholder={inChatMode ? "Type your question or 'exit' to quit chat mode..." : ""}
-                    autoFocus
+                    autoFocus={false}
+                    readOnly={false}
+                    autoComplete="off"
+                    autoCapitalize="off"
+                    autoCorrect="off"
+                    spellCheck="false"
                   />
                 </div>
               </div>

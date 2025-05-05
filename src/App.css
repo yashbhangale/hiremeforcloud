@@ -272,11 +272,13 @@ pre {
   font-size: 0.8em;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 768px) {
   .terminal-window {
     margin: 0;
     border-radius: 0;
     height: 100vh;
+    max-width: 100%;
+    width: 100%;
   }
   
   .terminal-header {
@@ -294,26 +296,41 @@ pre {
   
   .terminal-body {
     padding: 10px;
+    height: calc(100vh - 120px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   
   .terminal-input-line {
     padding: 8px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to right, #333, #444);
+    z-index: 1000;
   }
   
   .terminal-input {
     font-size: 14px;
+    padding: 8px;
+    height: 40px;
   }
   
   .help-grid {
     grid-template-columns: 1fr;
+    gap: 8px;
   }
   
   .ascii-art {
     font-size: 0.7em;
+    overflow-x: auto;
+    white-space: pre;
   }
   
   .project-item, .experience-item, .education-item, .achievement-item {
     padding: 12px;
+    margin-bottom: 10px;
   }
   
   .project-title, .job-title, .degree-title, .achievement-title {
@@ -326,6 +343,7 @@ pre {
   
   .tech-stack, .skill-items {
     flex-wrap: wrap;
+    gap: 6px;
   }
   
   .tech-tag, .skill-tag {
@@ -401,6 +419,7 @@ pre {
   
   .chat-container {
     padding: 15px;
+    margin-bottom: 60px;
   }
   
   .chat-header {
@@ -431,6 +450,31 @@ pre {
   .ai-response {
     font-size: 0.9em;
   }
+  
+  .recruiter-popup {
+    width: 95%;
+    max-height: 90vh;
+    margin: 10px;
+    padding: 15px;
+  }
+  
+  .recruiter-popup-title {
+    font-size: 1.1em;
+  }
+  
+  .recruiter-popup-content {
+    font-size: 0.95em;
+  }
+  
+  .recruiter-popup-content p {
+    margin-bottom: 12px;
+  }
+  
+  .recruiter-popup-content .command,
+  .recruiter-popup-content .tip {
+    padding: 4px 8px;
+    margin: 4px 0;
+  }
 }
 
 @media (max-width: 360px) {
@@ -440,6 +484,7 @@ pre {
   
   .terminal-input {
     font-size: 12px;
+    height: 36px;
   }
   
   .ascii-art {
@@ -810,32 +855,6 @@ pre {
   z-index: 999;
   transition: opacity 0.3s ease;
   backdrop-filter: blur(2px);
-}
-
-@media (max-width: 768px) {
-  .recruiter-popup {
-    width: 95%;
-    padding: 15px;
-    margin: 10px;
-  }
-  
-  .recruiter-popup-title {
-    font-size: 1.1em;
-  }
-  
-  .recruiter-popup-content {
-    font-size: 0.95em;
-  }
-  
-  .recruiter-popup-content p {
-    margin-bottom: 12px;
-  }
-  
-  .recruiter-popup-content .command,
-  .recruiter-popup-content .tip {
-    padding: 4px 8px;
-    margin: 4px 0;
-  }
 }
 
 .avatar-container {
